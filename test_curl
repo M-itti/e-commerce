@@ -1,0 +1,10 @@
+#!/bin/bash
+
+curl -X POST http://localhost:5000/auth/sign-up \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdii", "password": "testpd"}'
+
+
+curl -X POST http://localhost:5000/auth/log-in \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdii", "password": "testpd"}'

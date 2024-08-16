@@ -3,7 +3,6 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-// Importing our route files
 import dbRouter from './routes/db.mjs';
 import authRouter from './routes/auth.mjs';
 
@@ -11,14 +10,16 @@ const app = express();
 
 const port = process.env.PORT || 5000;
 
+// Set up middleware
+app.use(morgan('dev')); // Log requests to the console
+
+// encoding
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Use the route file
 app.use('/db', dbRouter);
 app.use('/auth', authRouter);
-
-// Set up middleware
-app.use(morgan('dev')); // Log requests to the console
-app.use(bodyParser.json()); // Parse incoming JSON requests
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 
 // Error handling middleware
 app.use((req, res, next) => {

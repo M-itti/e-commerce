@@ -1,17 +1,17 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
 
 // Importing our route files
-const authRouter = require('./routes/auth');
-const dbRouter = require('./routes/db');
+import authRouter from './routes/auth.mjs';
+import dbRouter from './routes/db.mjs';
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
-// use the route file
+// Use the route file
 app.use('/auth', authRouter);
 app.use('/db', dbRouter);
 

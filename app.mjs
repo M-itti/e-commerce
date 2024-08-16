@@ -4,16 +4,16 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
 // Importing our route files
-import authRouter from './routes/auth.mjs';
 import dbRouter from './routes/db.mjs';
+import authRouter from './routes/auth.mjs';
 
 const app = express();
 
 const port = process.env.PORT || 5000;
 
 // Use the route file
-app.use('/auth', authRouter);
 app.use('/db', dbRouter);
+app.use('/auth', authRouter);
 
 // Set up middleware
 app.use(morgan('dev')); // Log requests to the console

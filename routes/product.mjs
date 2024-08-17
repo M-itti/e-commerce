@@ -65,6 +65,21 @@ router.delete('/remove_product/:id', async (req, res) => {
   }
 });
 
+router.get('/plants/:id', async (req, res) => {
+  try {
+    const plantId = req.params.id;
+    const plant = await Product.findById(plantId);
+
+    if (!plant) {
+      return res.status(404).json({ error: 'Plant not found' });
+    }
+
+    res.status(200).json(plant);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching the plant' });
+  }
+});
+
 router.get('/plants/indoor', async (req, res) => {
   try {
     const indoorPlants = await Product.find({ category: 'Indoor Plants' });

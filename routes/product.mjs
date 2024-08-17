@@ -1,6 +1,7 @@
 import express from "express";
+import { ObjectId } from 'mongodb';
 
-import { User, Product } from "./model.mjs";
+import { User, Product, mongoose } from "./model.mjs";
 
 const router = express.Router();
 
@@ -45,16 +46,43 @@ router.post('/create_product', async (req, res) => {
   }
 });
 
-router.get('/list_products', async (req, res) => {
-  res.status(200).send('ok\n');
+router.delete('/remove_product/:id', async (req, res) => {
+  try {
+    const { id } = req.params; 
+
+    const objectId = new ObjectId(id);
+
+    const result = await Product.deleteOne({ _id: objectId });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error deleting product', error });
+  }
 });
 
-router.get('/update_product', async (req, res) => {
-  res.status(200).send('ok\n');
+router.get('/plants/indoor', async (req, res) => {
+  try {
+    const indoorPlants = await Product.find({ category: 'Indoor Plants' });
+
+    res.status(200).json(indoorPlants);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching indoor plants' });
+  }
 });
 
-router.get('/delete_product', async (req, res) => {
-  res.status(200).send('ok\n');
+router.get('/plants/outdoor', async (req, res) => {
+  try {
+    const indoorPlants = await Product.find({ category: 'Outdoor Plants' });
+
+    res.status(200).json(indoorPlants);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching indoor plants' });
+  }
 });
 
 export default router;

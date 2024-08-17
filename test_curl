@@ -1,4 +1,14 @@
 #!/bin/bash
+#curl -X GET http://localhost:5000/product/plants/indoor | jq
+
+#curl -X GET http://localhost:5000/product/plants/outdoor
+#curl -X GET http://localhost:5000/product/plants/outdoor
+
+curl -X DELETE http://localhost:5000/product/remove_product/66c0bbe2ce08a5834e686c53
+
+exit
+
+# *** Indoor Plants ***
 
 http POST http://localhost:5000/product/create_product \
     productName="Aloe Vera" \
@@ -14,9 +24,179 @@ http POST http://localhost:5000/product/create_product \
     manufacturer="Green Thumb" \
     weight=1.2
 
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Rose",
+    "productDescription": "A beautiful flowering plant.",
+    "stockQuantity": 50,
+    "availability": true,
+    "category": "Indoor Plants",
+    "subcategory": "Flowers",
+    "price": 15.99,
+    "material": "Organic",
+    "color": "Red",
+    "size": "Medium",
+    "manufacturer": "Floral Ltd",
+    "weight": 0.5
+  }'
 
-exit
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Planter Pots",
+    "productDescription": "Perfect for indoor plants.",
+    "stockQuantity": 200,
+    "availability": true,
+    "category": "Indoor Plants",
+    "subcategory": "Plant Accessories",
+    "price": 5.99,
+    "material": "Plastic",
+    "color": "Terracotta",
+    "size": "Small",
+    "manufacturer": "GardenWorks",
+    "weight": 0.3
+  }'
 
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Basil",
+    "productDescription": "A fragrant herb used in cooking.",
+    "stockQuantity": 150,
+    "availability": true,
+    "category": "Indoor Plants",
+    "subcategory": "Herbs",
+    "price": 2.99,
+    "material": "Organic",
+    "color": "Green",
+    "size": "Small",
+    "manufacturer": "Herb Haven",
+    "weight": 0.1
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Fiddle Leaf Fig",
+    "productDescription": "A large leafy plant perfect for indoor spaces.",
+    "stockQuantity": 30,
+    "availability": true,
+    "category": "Indoor Plants",
+    "subcategory": "Trees",
+    "price": 45.00,
+    "material": "Organic",
+    "color": "Green",
+    "size": "Large",
+    "manufacturer": "Tropical Delights",
+    "weight": 3.0
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Saguaro Cactus",
+    "productDescription": "A large cactus species native to the Sonoran Desert.",
+    "stockQuantity": 10,
+    "availability": true,
+    "category": "Indoor Plants",
+    "subcategory": "Cacti",
+    "price": 39.99,
+    "material": "Organic",
+    "color": "Green",
+    "size": "Large",
+    "manufacturer": "Desert Flora",
+    "weight": 4.0
+  }'
+
+# *** Outdoor Plants
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Marigold",
+    "productDescription": "A vibrant flower that thrives in the garden.",
+    "stockQuantity": 80,
+    "availability": true,
+    "category": "Outdoor Plants",
+    "subcategory": "Flowers",
+    "price": 7.99,
+    "material": "Organic",
+    "color": "Yellow",
+    "size": "Medium",
+    "manufacturer": "Garden Blooms",
+    "weight": 0.2
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Garden Tools",
+    "productDescription": "Essential tools for outdoor gardening.",
+    "stockQuantity": 100,
+    "availability": true,
+    "category": "Outdoor Plants",
+    "subcategory": "Plant Accessories",
+    "price": 29.99,
+    "material": "Metal",
+    "color": "Silver",
+    "size": "Standard",
+    "manufacturer": "Tool Masters",
+    "weight": 1.5
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Rosemary",
+    "productDescription": "An aromatic herb used in cooking and gardens.",
+    "stockQuantity": 120,
+    "availability": true,
+    "category": "Outdoor Plants",
+    "subcategory": "Herbs",
+    "price": 3.49,
+    "material": "Organic",
+    "color": "Green",
+    "size": "Small",
+    "manufacturer": "Herb World",
+    "weight": 0.2
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Rosemary",
+    "productDescription": "An aromatic herb used in cooking and gardens.",
+    "stockQuantity": 120,
+    "availability": true,
+    "category": "Outdoor Plants",
+    "subcategory": "Herbs",
+    "price": 3.49,
+    "material": "Organic",
+    "color": "Green",
+    "size": "Small",
+    "manufacturer": "Herb World",
+    "weight": 0.2
+  }'
+
+curl -X POST http://localhost:5000/product/create_product \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Maple Tree",
+    "productDescription": "A tree known for its vibrant fall colors.",
+    "stockQuantity": 15,
+    "availability": true,
+    "category": "Outdoor Plants",
+    "subcategory": "Trees",
+    "price": 89.99,
+    "material": "Organic",
+    "color": "Red",
+    "size": "Large",
+    "manufacturer": "Tree Experts",
+    "weight": 10.0
+  }'
+
+  exit
 curl -X POST http://localhost:5000/auth/sign-up \
      -H "Content-Type: application/json" \
      -d '{"username": "mehdii", "password": "testpd"}'

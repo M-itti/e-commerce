@@ -1,15 +1,32 @@
+import process from 'node:process';
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
 
-import User from "./model.mjs";
+import { User } from "./model.mjs";
 
 const router = express.Router();
 
 const jwt_secret_key = process.env.JWT_SECRET_KEY;
 
-console.log('JWT Secret Key:', jwt_secret_key);
+export const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).send('Access Denied: No Token Provided\n');
+    }
+
+    jwt.verify(token, jwt_secret_key, (err, user) => {
+        if (err) {
+            return res.status(403).send('Access Denied: Invalid Token\n');
+        }
+
+        req.user = user; // Attach the user object to the request
+        next(); // Move to the next middleware or route handler
+    });
+}
 
 router.post('/sign-up', async (req, res) => {
     try {
@@ -80,4 +97,3 @@ router.post('/log-in', async (req, res) => {
 });
 
 export default router;
-

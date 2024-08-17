@@ -1,5 +1,22 @@
 #!/bin/bash
 
+http POST http://localhost:5000/product/create_product \
+    productName="Aloe Vera" \
+    productDescription="Aloe Vera is a succulent plant species of the genus Aloe." \
+    stockQuantity=100 \
+    availability=true \
+    category="Indoor Plants" \
+    subcategory="Succulents" \
+    price=12.99 \
+    material="Organic" \
+    color="Green" \
+    size="Medium" \
+    manufacturer="Green Thumb" \
+    weight=1.2
+
+
+exit
+
 curl -X POST http://localhost:5000/auth/sign-up \
      -H "Content-Type: application/json" \
      -d '{"username": "mehdii", "password": "testpd"}'
@@ -8,3 +25,5 @@ curl -X POST http://localhost:5000/auth/sign-up \
 curl -X POST http://localhost:5000/auth/log-in \
      -H "Content-Type: application/json" \
      -d '{"username": "mehdii", "password": "testpd"}'
+
+

@@ -51,14 +51,29 @@ const productSchema = new Schema(
   { timestamps: true },
 );
 
+const CartSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  items: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      quantity: { type: Number, required: true },
+    },
+  ],
+});
+
 // mongoose-paginate
 productSchema.plugin(paginate);
 
-// Create indexes
+// indexes
 productSchema.index({ category: 1 });
 productSchema.index({ subcategory: 1 });
 
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchema);
+const Cart = mongoose.model("Cart", CartSchema);
 
-export { Product, User, mongoose };
+export { Product, User, mongoose, Cart };

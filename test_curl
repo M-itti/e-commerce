@@ -9,7 +9,52 @@
 
 #curl -X DELETE http://localhost:5000/product/remove_product/66c0bbe2ce08a5834e686c53
 
-#exit
+curl -v http://localhost:5000/product/cart/decrement \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjYyMThkOTI2YmI2OTNkZjI2MWUiLCJ1c2VybmFtZSI6Im1laGRpaSIsImlhdCI6MTcyMzk5OTc4NCwiZXhwIjoxNzI0MDAzMzg0fQ.0rinOaNxAlA7vkO5VsySr4lK9SD2eUxzTj6wtY5PPBg" \
+  -d '{"productId": "605c72efc1d1b300d1f9b33b"}'
+
+exit
+
+curl -v http://localhost:5000/product/cart/increment \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjYyMThkOTI2YmI2OTNkZjI2MWUiLCJ1c2VybmFtZSI6Im1laGRpaSIsImlhdCI6MTcyMzk5OTc4NCwiZXhwIjoxNzI0MDAzMzg0fQ.0rinOaNxAlA7vkO5VsySr4lK9SD2eUxzTj6wtY5PPBg" \
+  -d '{"productId": "605c72efc1d1b300d1f9b33b"}'
+
+
+curl -v -X POST http://localhost:5000/product/cart \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjYyMThkOTI2YmI2OTNkZjI2MWUiLCJ1c2VybmFtZSI6Im1laGRpaSIsImlhdCI6MTcyMzk5OTc4NCwiZXhwIjoxNzI0MDAzMzg0fQ.0rinOaNxAlA7vkO5VsySr4lK9SD2eUxzTj6wtY5PPBg
+  " \
+  -d '{
+    "productId": "605c72efc1d1b300d1f9b33b",
+    "quantity": 3
+  }'
+
+
+# CART TEST
+curl -X POST http://localhost:5000/product/cart \
+  -H "Content-Type: application/json" \
+  -H "Cookie: connect.sid=<your-session-id>" \
+  -d '{
+    "productId": "605c72efc1d1b300d1f9b33b",
+    "quantity": 3
+  }'
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjYyMThkOTI2YmI2OTNkZjI2MWUiLCJ1c2VybmFtZSI6Im1laGRpaSIsImlhdCI6MTcyMzk5OTc4NCwiZXhwIjoxNzI0MDAzMzg0fQ.0rinOaNxAlA7vkO5VsySr4lK9SD2eUxzTj6wtY5PPBg
+
+
+curl -X POST http://localhost:5000/auth/sign-up \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdii", "password": "testpd"}'
+
+
+curl -X POST http://localhost:5000/auth/log-in \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdii", "password": "testpd"}'
+
+
 
 # *** Indoor Plants ***
 
@@ -198,15 +243,3 @@ curl -X POST http://localhost:5000/product/create_product \
     "manufacturer": "Tree Experts",
     "weight": 10.0
   }'
-
-  exit
-curl -X POST http://localhost:5000/auth/sign-up \
-     -H "Content-Type: application/json" \
-     -d '{"username": "mehdii", "password": "testpd"}'
-
-
-curl -X POST http://localhost:5000/auth/log-in \
-     -H "Content-Type: application/json" \
-     -d '{"username": "mehdii", "password": "testpd"}'
-
-

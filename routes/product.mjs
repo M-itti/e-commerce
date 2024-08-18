@@ -3,7 +3,8 @@ import express from "express";
 
 import { ObjectId } from "mongodb";
 
-import { User, Product, mongoose } from "./model.mjs";
+import { User, Product, mongoose, Cart } from "./model.mjs";
+import { authenticateToken } from "./auth.mjs";
 
 const router = express.Router();
 
@@ -139,6 +140,77 @@ router.get("/products", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while retrieving products" });
+  }
+});
+
+router.post("/cart/increment", authenticateToken, async (req, res) => {
+  const userId = req.user.userId;
+  const { productId } = req.body;
+
+  if (!productId) {
+    return res.status(400).send("Product ID is required.");
+  }
+
+  try {
+    let cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).send("Cart not found.");
+    }
+
+    const existingItemIndex = cart.items.findIndex(
+      (item) => item.productId.toString() === productId,
+    );
+
+    if (existingItemIndex >= 0) {
+      cart.items[existingItemIndex].quantity += 1;
+    } else {
+      return res.status(404).send("Item not found in cart.");
+    }
+
+    await cart.save();
+    res.status(200).send("Item quantity incremented successfully.");
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).send("Server error. Please try again later.");
+  }
+});
+
+router.post("/cart/decrement", authenticateToken, async (req, res) => {
+  const userId = req.user.userId;
+  const { productId } = req.body;
+
+  if (!productId) {
+    return res.status(400).send("Product ID is required.");
+  }
+
+  try {
+    let cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res.status(404).send("Cart not found.");
+    }
+
+    const existingItemIndex = cart.items.findIndex(
+      (item) => item.productId.toString() === productId,
+    );
+
+    if (existingItemIndex >= 0) {
+      cart.items[existingItemIndex].quantity -= 1;
+
+      // Optionally remove item if quantity falls to 0
+      if (cart.items[existingItemIndex].quantity <= 0) {
+        cart.items.splice(existingItemIndex, 1);
+      }
+    } else {
+      return res.status(404).send("Item not found in cart.");
+    }
+
+    await cart.save();
+    res.status(200).send("Item quantity decremented successfully.");
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).send("Server error. Please try again later.");
   }
 });
 

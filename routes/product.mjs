@@ -1,4 +1,4 @@
-import paginate from 'mongoose-paginate-v2';
+import paginate from "mongoose-paginate-v2";
 import express from "express";
 
 import { ObjectId } from "mongodb";
@@ -108,15 +108,15 @@ router.get("/plants/outdoor", async (req, res) => {
   }
 });
 
-router.get('/products', async (req, res) => {
+router.get("/products", async (req, res) => {
   const { page = 1, limit = 1 } = req.query;
 
   try {
     const options = {
-      page: parseInt(page, 10),   
-      limit: parseInt(limit, 10), 
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10),
       collation: {
-        locale: 'en',
+        locale: "en",
       },
     };
 
@@ -136,7 +136,9 @@ router.get('/products', async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'An error occurred while retrieving products' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while retrieving products" });
   }
 });
 

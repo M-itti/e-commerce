@@ -2,14 +2,14 @@
 #curl -X GET http://localhost:5000/product/plants/indoor | jq
 
 # retrieve specific flower
-curl -X GET http://localhost:5000/product/plants/66c0bbe2ce08a5834e686c55 | jq
+#curl -X GET http://localhost:5000/product/plants/66c0bbe2ce08a5834e686c55 | jq
 #
 #curl -X GET http://localhost:5000/product/plants/outdoor
 #curl -X GET http://localhost:5000/product/plants/outdoor
 
 #curl -X DELETE http://localhost:5000/product/remove_product/66c0bbe2ce08a5834e686c53
 
-exit
+#exit
 
 # *** Indoor Plants ***
 

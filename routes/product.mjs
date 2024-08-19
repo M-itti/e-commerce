@@ -109,7 +109,7 @@ router.get("/plants/outdoor", async (req, res) => {
   }
 });
 
-router.get("/products", async (req, res) => {
+router.get("/page", async (req, res) => {
   const { page = 1, limit = 1 } = req.query;
 
   try {

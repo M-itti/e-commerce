@@ -2,19 +2,20 @@
 #curl -X GET http://localhost:5000/product/plants/indoor | jq
 
 # retrieve specific flower
-#curl -X GET http://localhost:5000/product/plants/66c0bbe2ce08a5834e686c55 | jq
+curl -X GET http://localhost:5000/product/plants/66c376c38d8bec3ad7f9f9a3 | jq
 #
 #curl -X GET http://localhost:5000/product/plants/outdoor
 #curl -X GET http://localhost:5000/product/plants/outdoor
 
 #curl -X DELETE http://localhost:5000/product/remove_product/66c0bbe2ce08a5834e686c53
 
+exit
+
 curl -v http://localhost:5000/product/cart/decrement \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmMyMjYyMThkOTI2YmI2OTNkZjI2MWUiLCJ1c2VybmFtZSI6Im1laGRpaSIsImlhdCI6MTcyMzk5OTc4NCwiZXhwIjoxNzI0MDAzMzg0fQ.0rinOaNxAlA7vkO5VsySr4lK9SD2eUxzTj6wtY5PPBg" \
   -d '{"productId": "605c72efc1d1b300d1f9b33b"}'
 
-exit
 
 curl -v http://localhost:5000/product/cart/increment \
   -H "Content-Type: application/json" \

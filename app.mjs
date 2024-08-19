@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Use the route file
 app.use("/db", dbRouter);
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/product", authProduct);
 
 // Error handling middleware

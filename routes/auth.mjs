@@ -45,7 +45,8 @@ router.post("/sign-up", async (req, res) => {
     }
 
     // Hash the password for storing in the database
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create and save the user to the database
     const user = new User({

@@ -8,8 +8,6 @@ import authProduct from "./routes/product.mjs";
 
 const app = express();
 
-const port = process.env.PORT || 5000;
-
 app.use(morgan("dev"));
 
 // encoding
@@ -37,6 +35,4 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+export default app

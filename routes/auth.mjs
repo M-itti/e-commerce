@@ -41,7 +41,7 @@ router.post("/sign-up", async (req, res) => {
     if (existingUser) {
       return res
         .status(409)
-        .send("Username already exists choose another usernmae\n");
+        .send("Username already exists choose another username\n");
     }
 
     // Hash the password for storing in the database

@@ -2,6 +2,7 @@ import process from "node:process";
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import sinon from "sinon";
 import "dotenv/config";
 
 import { User } from "./model.mjs";
@@ -90,8 +91,7 @@ router.post("/log-in", async (req, res) => {
       jwt_secret_key,
       { expiresIn: "1h" },
     );
-
-    res.json({ token });
+    return res.status(200).json({ token });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error\n");

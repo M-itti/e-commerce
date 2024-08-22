@@ -4,3 +4,4 @@ todo
 pretty
 mongosh
 .env
+.nyc_output

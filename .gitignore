@@ -5,3 +5,5 @@ pretty
 mongosh
 .env
 .nyc_output
+test/coverage/
+coverage/

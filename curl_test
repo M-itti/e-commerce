@@ -1,4 +1,15 @@
 #!/bin/bash
+
+curl -X POST http://localhost:5000/sign-up \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdiii", "password": "testpd"}'
+
+
+curl -X POST http://localhost:5000/log-in \
+     -H "Content-Type: application/json" \
+     -d '{"username": "mehdiii", "password": "testpd"}'
+
+exit
 #curl -X GET http://localhost:5000/product/plants/indoor | jq
 
 # retrieve specific flower
@@ -9,7 +20,6 @@ curl -X GET http://localhost:5000/product/plants/66c376c38d8bec3ad7f9f9a3 | jq
 
 #curl -X DELETE http://localhost:5000/product/remove_product/66c0bbe2ce08a5834e686c53
 
-exit
 
 curl -v http://localhost:5000/product/cart/decrement \
   -H "Content-Type: application/json" \

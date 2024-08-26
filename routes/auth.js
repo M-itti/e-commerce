@@ -3,7 +3,7 @@ const express = require('express')
 require('dotenv').config()
 
 const { User } = require('./model')
-const registerUser = require('./userService')
+const { registerUser } = require('./userService')
 const authenticateUser = require('./authService')
 const authenticateToken = require('./tokenMiddleware')
 
@@ -25,7 +25,7 @@ router.post('/sign-up', async (req, res) => {
       return res.status(409).send(error.message + '\n')
     }
     console.error(error)
-    res.status(500).send('Internal server error\n')
+    res.status(500).send('internal server error\n')
   }
 })
 
@@ -45,6 +45,6 @@ router.post('/log-in', async (req, res) => {
     console.error(error)
     res.status(500).send('Internal server error\n')
   }
-})
+});
 
 module.exports = router

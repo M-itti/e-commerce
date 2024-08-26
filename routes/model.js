@@ -1,12 +1,12 @@
-import paginate from "mongoose-paginate-v2";
-import mongoose from "mongoose";
+const mongoose = require('mongoose')
+const paginate = require('mongoose-paginate-v2')
 
-const { Schema, model } = mongoose;
+const { Schema, model } = mongoose
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-});
+})
 
 const productSchema = new Schema(
   {
@@ -24,21 +24,21 @@ const productSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      enum: ["Indoor Plants", "Outdoor Plants"],
+      enum: ['Indoor Plants', 'Outdoor Plants'],
     },
     subcategory: {
       type: String,
       required: true,
       trim: true,
       enum: [
-        "Flowers",
-        "Plant Accessories",
-        "Herbs",
-        "Trees",
-        "Cacti",
-        "Succulents",
-        "Medicinial Plants",
-        "Carnivorous Plants",
+        'Flowers',
+        'Plant Accessories',
+        'Herbs',
+        'Trees',
+        'Cacti',
+        'Succulents',
+        'Medicinial Plants',
+        'Carnivorous Plants',
       ],
     },
     price: { type: Number, required: true, min: 0 },
@@ -49,7 +49,7 @@ const productSchema = new Schema(
     weight: { type: Number, min: 0 },
   },
   { timestamps: true },
-);
+)
 
 const CartSchema = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -57,23 +57,23 @@ const CartSchema = new mongoose.Schema({
     {
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
+        ref: 'Product',
         required: true,
       },
       quantity: { type: Number, required: true },
     },
   ],
-});
+})
 
 // mongoose-paginate
-productSchema.plugin(paginate);
+productSchema.plugin(paginate)
 
 // indexes
-productSchema.index({ category: 1 });
-productSchema.index({ subcategory: 1 });
+productSchema.index({ category: 1 })
+productSchema.index({ subcategory: 1 })
 
-const User = mongoose.model("User", userSchema);
-const Product = mongoose.model("Product", productSchema);
-const Cart = mongoose.model("Cart", CartSchema);
+const User = mongoose.model('User', userSchema)
+const Product = mongoose.model('Product', productSchema)
+const Cart = mongoose.model('Cart', CartSchema)
 
-export { Product, User, mongoose, Cart };
+module.exports = { Product, User, mongoose, Cart }

@@ -80,6 +80,9 @@ describe('./routes/userService.js registerUser', () => {
   afterEach(() => {
     sinon.restore()
     sinon.reset()
+    findOneStub.restore()
+    saveStub.restore()
+    hashStub.restore()
   })
 
   it('should throw password is not provided', async () => {
@@ -107,7 +110,9 @@ describe('./routes/userService.js registerUser', () => {
   })
 
   it('should throw username already exist', async () => {
-    findOneStub.rejects(new Error('Username already exists'))
+    // simulating the existing username
+    findOneStub.resolves({ username: 'user123'});
+
     try {
       await userService.registerUser('user123', 'pass123')
       assert.fail('Expected error not thrown')

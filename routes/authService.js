@@ -31,4 +31,4 @@ async function authenticateUser(username, password) {
   return token
 }
 
-module.exports = authenticateUser
+module.exports = { authenticateUser }

@@ -1,15 +1,11 @@
 const process = require('process')
 const express = require('express')
-require('dotenv').config()
 
 const { User } = require('./model')
 const { registerUser } = require('./userService')
-const authenticateUser = require('./authService')
-const authenticateToken = require('./tokenMiddleware')
+const { authenticateUser } = require('./authService')
 
 const router = express.Router()
-
-const jwt_secret_key = process.env.JWT_SECRET_KEY
 
 router.post('/sign-up', async (req, res) => {
   try {

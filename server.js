@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const process = require('process'); 
 const app = require('./app'); 
 
-mongoose.connect('mongodb://127.0.0.1:27017/test');
+mongoose.connect('mongodb://127.0.0.1:27017/plants');
 
 mongoose.connection.on('connected', () => {
   console.log('Connected to MongoDB');

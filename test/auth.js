@@ -3,6 +3,7 @@ const express = require('express')
 const chai = require('chai')
 const sinon = require('sinon')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const { assert } = chai
 
 // import test data
@@ -111,7 +112,7 @@ describe('./routes/userService.js registerUser', () => {
 
   it('should throw username already exist', async () => {
     // simulating the existing username
-    findOneStub.resolves({ username: 'user123'});
+    findOneStub.resolves({ username: 'user123' })
 
     try {
       await userService.registerUser('user123', 'pass123')
@@ -174,5 +175,101 @@ describe('POST /log-in', () => {
     })
     assert.equal(response.status, 401)
     assert.equal(response.text, 'Invalid credentials\n')
+  })
+})
+
+describe('./routes/authService.js', () => {
+  let findOneStub, signStub, BcryptCompareStub, authUserStub
+
+  beforeEach(() => {
+    findOneStub = sinon.stub(userRepository, 'findOne')
+    signStub = sinon.stub(jwt, 'sign')
+    BcryptCompareStub = sinon.stub(bcrypt, 'compare')
+    authUserStub = sinon.stub(authService, 'authenticateUser')
+  })
+
+  afterEach(() => {
+    sinon.restore()
+  })
+
+  testCases.forEach(
+    ({ description, payload, expectedStatus, expectedText }) => {
+      it(`should return ${expectedStatus} and error message "${expectedText.trim()}" when ${description}`, async function () {
+        authUserStub.rejects(new Error('Username and password are required'))
+        try {
+          const { username, password } = payload
+          await authService.authenticateUser(username, password)
+          //await authenticateUser(username, password);
+          assert.fail('Expected error was not thrown')
+        } catch (err) {
+          assert.equal(err.message, 'Username and password are required')
+        }
+      })
+    },
+  )
+
+  it('should perform some other test', async () => {})
+})
+
+describe('./routes/authService.js', () => {
+  let findOneStub, signStub, BcryptCompareStub, authUserStub
+
+  beforeEach(() => {
+    findOneStub = sinon.stub(User, 'findOne')
+    signStub = sinon.stub(jwt, 'sign')
+    BcryptCompareStub = sinon.stub(bcrypt, 'compare')
+  })
+
+  afterEach(() => {
+    sinon.restore()
+  })
+
+  it('should throw an error when username and password are required', async () => {
+    try {
+      await authService.authenticateUser(null, null)
+      assert.fail('Expected error was not thrown')
+    } catch (err) {
+      assert.equal(err.message, 'Username and password are required')
+    }
+  })
+
+  it('should throw an error when user is not found', async () => {
+    findOneStub.resolves(null) // Simulate user not found
+    try {
+      await authService.authenticateUser('testuser', 'password123')
+      assert.fail('Expected error was not thrown')
+    } catch (err) {
+      assert.equal(err.message, 'Invalid credentials')
+    }
+  })
+
+  it('should throw an error when password does not match', async () => {
+    findOneStub.resolves({ password: 'hashedPassword' })
+    BcryptCompareStub.resolves(false)
+    try {
+      await authService.authenticateUser('testuser', 'wrongpassword')
+      assert.fail('Expected error was not thrown')
+    } catch (err) {
+      assert.equal(err.message, 'Invalid credentials')
+    }
+  })
+
+  it('should return a token when credentials are valid', async () => {
+    const payload = { username: 'testuser', password: 'password123' }
+    const user = {
+      _id: 'userId',
+      username: 'testuser',
+      password: 'hashedPassword',
+    }
+    findOneStub.resolves(user)
+    BcryptCompareStub.resolves(true)
+    signStub.returns('token')
+
+    const token = await authService.authenticateUser(
+      payload.username,
+      payload.password,
+    )
+    assert.equal(token, 'token')
+    assert(signStub.calledOnce)
   })
 })

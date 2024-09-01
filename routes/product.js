@@ -2,7 +2,7 @@ const paginate = require('mongoose-paginate-v2')
 const express = require('express')
 const { ObjectId } = require('mongodb')
 const { User, Product, mongoose, Cart } = require('./model')
-const authenticateToken = require('./authService')
+const authenticateToken = require('./tokenMiddleware')
 
 const router = express.Router()
 
@@ -50,9 +50,7 @@ router.post('/create_product', async (req, res) => {
 router.delete('/remove_product/:id', async (req, res) => {
   try {
     const { id } = req.params
-
     const objectId = new ObjectId(id)
-
     const result = await Product.deleteOne({ _id: objectId })
 
     if (result.deletedCount === 0) {

@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { User } = require('./model')
+require('dotenv').config({ path: '../.env' })
 
 const jwt_secret_key = process.env.JWT_SECRET_KEY
 
@@ -24,7 +25,7 @@ async function authenticateUser(username, password) {
   // Generate token
   const token = jwt.sign(
     { userId: user._id, username: user.username },
-    jwt_secret_key,
+    'secretkey',
     { expiresIn: '1h' },
   )
 

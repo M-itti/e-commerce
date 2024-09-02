@@ -73,30 +73,30 @@ describe('POST /sign-up', () => {
 
   it('should return 400 if  password is not sent', async () => {
     const response = await request(app).post('/sign-up').send({
-      username: 'testuser'
+      username: 'testuser',
     })
-    
+
     assert.equal(response.status, 400)
     assert.equal(response.text, 'Username and password are required\n')
-  });
+  })
 
   it('should return 400 if username is not sent', async () => {
     const response = await request(app).post('/sign-up').send({
-      password: 'testpassword'
+      password: 'testpassword',
     })
-    
+
     assert.equal(response.status, 400)
     assert.equal(response.text, 'Username and password are required\n')
-  });
+  })
 
   it('should return 400 if username is not sent', async () => {
     const response = await request(app).post('/sign-up').send({
-      password: 'testpassword'
+      password: 'testpassword',
     })
-    
+
     assert.equal(response.status, 400)
     assert.equal(response.text, 'Username and password are required\n')
-  });
+  })
 })
 
 describe('POST /log-in', () => {
@@ -129,25 +129,28 @@ describe('POST /log-in', () => {
     // creating user before login
     await request(app).post('/sign-up').send({
       username: 'testuser',
-      password: 'testpass'
+      password: 'testpass',
     })
 
     const response = await request(app).post('/log-in').send({
       username: 'testuser',
-      password: 'testpass'
+      password: 'testpass',
     })
 
     assert.equal(response.status, 200)
-    assert.property(response._body, 'token');
-    const tokenPattern = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/;
-    assert.match(response._body.token, tokenPattern, 'Token should match the JWT format');
-
+    assert.property(response._body, 'token')
+    const tokenPattern = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/
+    assert.match(
+      response._body.token,
+      tokenPattern,
+      'Token should match the JWT format',
+    )
   })
 
   it('should return Invalid credentials', async () => {
     const response = await request(app).post('/log-in').send({
       username: 'wrongtestuser',
-      password: 'wrongtestpassword'
+      password: 'wrongtestpassword',
     })
 
     assert.equal(response.status, 401)

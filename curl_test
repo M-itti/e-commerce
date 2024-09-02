@@ -2,14 +2,14 @@
 
 curl -X POST http://localhost:5000/sign-up \
      -H "Content-Type: application/json" \
-     -d '{"username": "mehdiiiiii", "password": "testpd"}'
+     -d '{"username": "mehdiiiiiii", "password": "testpd"}'
 
 
+exit
 curl -X POST http://localhost:5000/log-in \
      -H "Content-Type: application/json" \
      -d '{"username": "mehdiii", "password": "testpd"}'
 
-exit
 #curl -X GET http://localhost:5000/product/plants/indoor | jq
 
 # retrieve specific flower

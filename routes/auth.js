@@ -9,15 +9,21 @@ const router = express.Router()
 
 router.post('/sign-up', async (req, res) => {
   try {
-    const { username, password } = req.body
-    await registerUser(username, password)
+    const { username, password, email } = req.body
+    await registerUser(username, password, email)
 
     res.status(201).send('User created\n')
   } catch (error) {
     if (error.message === 'Username and password are required') {
       return res.status(400).send(error.message + '\n')
     }
+    if (error.message === 'Email is required') {
+      return res.status(400).send(error.message + '\n')
+    }
     if (error.message === 'Username already exists') {
+      return res.status(409).send(error.message + '\n')
+    }
+    if (error.message === 'Email already exists') {
       return res.status(409).send(error.message + '\n')
     }
     console.error(error)

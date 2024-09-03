@@ -4,6 +4,7 @@ const express = require('express')
 const { User } = require('./model')
 const { registerUser } = require('./userService')
 const { authenticateUser } = require('./authService')
+const { sendSignupEvent } = require('./producer')
 
 const router = express.Router()
 
@@ -11,6 +12,8 @@ router.post('/sign-up', async (req, res) => {
   try {
     const { username, password, email } = req.body
     await registerUser(username, password, email)
+
+    sendSignupEvent(email);
 
     res.status(201).send('User created\n')
   } catch (error) {

@@ -31,7 +31,7 @@ async function registerUser(username, password, email) {
   await userRepository.save({
     username: username,
     password: hashedpassword,
-    email: email
+    email: email,
   })
 }
 

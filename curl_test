@@ -2,7 +2,7 @@
 
 curl -X POST http://localhost:5000/sign-up \
      -H "Content-Type: application/json" \
-     -d '{"username": "mehdiiiiiiii", "password": "testpd", "email":"mahdlinux@gmail.com"}'
+     -d '{"username": "mehdiiiiiii", "password": "testpd", "email":"mahdlinux@gmail.com"}'
 
 
 exit

@@ -13,7 +13,7 @@ router.post('/sign-up', async (req, res) => {
     const { username, password, email } = req.body
     await registerUser(username, password, email)
 
-    sendSignupEvent(email);
+    await sendSignupEvent(email)
 
     res.status(201).send('User created\n')
   } catch (error) {

@@ -6,7 +6,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "kafka-node": "^5.0.0",
+    "kafkajs": "^2.2.4",
     "mocha": "^10.7.3",
     "mongodb": "6.8",
     "mongoose": "^8.5.3",

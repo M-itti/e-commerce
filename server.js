@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const process = require('process');
 const app = require('./app');
-const { run: runKafkaConsumer } = require('./routes/consumer'); // Import Kafka consumer
-const { startProducer } = require('./routes/producer'); // Import Kafka producer
+const { run: runKafkaConsumer } = require('./routes/consumer'); 
+const { startProducer } = require('./routes/producer'); 
+const { createTopic } = require('./routes/admin');
 
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +14,7 @@ mongoose.connection.on('connected', async () => {
   console.log('Connected to MongoDB');
 
   try {
+    await createTopic('user-signup');
     await startProducer(); // Start Kafka producer
     await runKafkaConsumer(); // Start Kafka consumer
     app.listen(PORT, () => {

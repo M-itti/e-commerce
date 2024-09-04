@@ -7,7 +7,6 @@ const { createTopic } = require('./routes/admin');
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/plants');
 
 mongoose.connection.on('connected', async () => {
@@ -15,30 +14,29 @@ mongoose.connection.on('connected', async () => {
 
   try {
     await createTopic('user-signup');
-    await startProducer(); // Start Kafka producer
-    await runKafkaConsumer(); // Start Kafka consumer
+    await startProducer(); 
+    await runKafkaConsumer(); 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
     console.error('Error setting up Kafka or starting server:', error);
-    process.exit(1); // Exit process if setup fails
+    process.exit(1); 
   }
 });
 
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
-  process.exit(1); // Exit process on MongoDB connection error
+  process.exit(1); 
 });
 
 // Graceful shutdown handling
 const shutdown = async () => {
   console.log('Shutting down gracefully...');
   try {
-    // Close MongoDB connection
     await mongoose.connection.close();
-    // Close Kafka producer and consumer connections
-    await producer.disconnect(); // Ensure you export and use the producer instance in consumer.js
+    // close Kafka producer and consumer connections
+    await producer.disconnect(); 
     console.log('Cleanup completed. Exiting...');
     process.exit(0);
   } catch (error) {

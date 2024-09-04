@@ -1,17 +1,15 @@
 const { Kafka } = require('kafkajs')
 const nodemailer = require('nodemailer')
 
-// KafkaJS setup
 const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['localhost:9092'], 
+  brokers: ['localhost:9092'],
 })
 
 const consumer = kafka.consumer({
-  groupId: 'email-service-group', 
+  groupId: 'email-service-group',
 })
 
-// Nodemailer setup
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -22,7 +20,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail = async (user) => {
   const mailOptions = {
-    from: 'johnjohndoe283@gmail.com', 
+    from: 'johnjohndoe283@gmail.com',
     to: user,
     subject: 'Welcome to Our Platform!',
     text: `Hi ${user.name},\n\nThank you for signing up for our platform! We're excited to have you onboard.\n\nBest regards,\nThe Team`,

@@ -2,21 +2,18 @@ const express = require('express')
 const morgan = require('morgan')
 const process = require('process')
 
-const authrouter = require('./routes/routes')
-const authproduct = require('./controllers/product')
+const routes = require('./routes/routes')
 
 const app = express()
 
 app.use(morgan('dev'))
 
-// encoding
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/', authrouter)
-app.use('/product', authproduct)
+app.use('/', routes)
+app.use('/product', routes)
 
-// error handling middleware
 app.use((req, res, next) => {
   const error = new error('not found')
   error.status = 404

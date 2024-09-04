@@ -2,7 +2,7 @@ const { registerUser } = require('../services/userService');
 const { authenticateUser } = require('../services/authService');
 const { sendSignupEvent } = require('../kafka/producer');
 
-exports.signUp = async (req, res) => {
+const signUp = async (req, res) => {
     try {
         const { username, password, email } = req.body;
         await registerUser(username, password, email);
@@ -28,7 +28,7 @@ exports.signUp = async (req, res) => {
     }
 };
 
-exports.logIn = async (req, res) => {
+const logIn = async (req, res) => {
     try {
         const { username, password } = req.body;
         const token = await authenticateUser(username, password);
@@ -44,4 +44,9 @@ exports.logIn = async (req, res) => {
         console.error(error);
         res.status(500).send('Internal server error\n');
     }
+};
+
+module.exports = {
+    signUp,
+    logIn,
 };

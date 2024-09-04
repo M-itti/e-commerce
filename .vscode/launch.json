@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Server with Inspect Break",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.js",
+      "runtimeArgs": [
+        "--inspect-brk"
+      ],
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js",
+        "${workspaceFolder}/node_modules/**/*.ts"  // Exclude all TypeScript files
+      ],
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"  // This helps with source maps if using TypeScript
+      ]
+    }
+  ]
+}

@@ -5,7 +5,6 @@ curl -X POST http://localhost:5000/sign-up \
      -d '{"username": "mehdi", "password": "testpd", "email":"mahdlinux@gmail.com"}'
 
 
-exit
 curl -X POST http://localhost:5000/log-in \
      -H "Content-Type: application/json" \
      -d '{"username": "mehdiii", "password": "testpd"}'

@@ -2,8 +2,8 @@ const express = require('express')
 const morgan = require('morgan')
 const process = require('process')
 
-const authRouter = require('./controllers/auth')
-const authProduct = require('./controllers/product')
+const authrouter = require('./routes/routes')
+const authproduct = require('./controllers/product')
 
 const app = express()
 
@@ -13,12 +13,12 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/', authRouter)
-app.use('/product', authProduct)
+app.use('/', authrouter)
+app.use('/product', authproduct)
 
-// Error handling middleware
+// error handling middleware
 app.use((req, res, next) => {
-  const error = new Error('Not Found')
+  const error = new error('not found')
   error.status = 404
   next(error)
 })

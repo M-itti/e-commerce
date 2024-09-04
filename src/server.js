@@ -36,6 +36,7 @@ const shutdown = async () => {
   try {
     await mongoose.connection.close();
     // close Kafka producer and consumer connections
+    // TODO: this is not defined
     await producer.disconnect(); 
     console.log('Cleanup completed. Exiting...');
     process.exit(0);
